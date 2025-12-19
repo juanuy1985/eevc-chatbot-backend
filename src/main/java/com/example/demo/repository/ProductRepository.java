@@ -34,9 +34,10 @@ public class ProductRepository {
         for (String jsonFile : typeToFileMap.values()) {
             try {
                 ClassPathResource resource = new ClassPathResource(jsonFile);
-                InputStream inputStream = resource.getInputStream();
-                List<Product> loadedProducts = objectMapper.readValue(inputStream, new TypeReference<List<Product>>() {});
-                products.addAll(loadedProducts);
+                try (InputStream inputStream = resource.getInputStream()) {
+                    List<Product> loadedProducts = objectMapper.readValue(inputStream, new TypeReference<List<Product>>() {});
+                    products.addAll(loadedProducts);
+                }
             } catch (IOException e) {
                 throw new RuntimeException("Failed to load products from " + jsonFile, e);
             }
