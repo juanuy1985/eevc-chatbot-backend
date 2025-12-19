@@ -22,11 +22,18 @@ public class AiService {
     public AiService(
             @Value("${openai.api.key}") String apiKey,
             ProductRepository productRepository) {
+        if (apiKey == null || apiKey.trim().isEmpty() || apiKey.equals("your-api-key-here")) {
+            throw new IllegalArgumentException("OpenAI API key must be configured. Set OPENAI_API_KEY environment variable.");
+        }
         this.openAiService = new OpenAiService(apiKey);
         this.productRepository = productRepository;
     }
 
     public ChatResponse chat(String userMessage) {
+        if (userMessage == null || userMessage.trim().isEmpty()) {
+            throw new IllegalArgumentException("User message cannot be null or empty");
+        }
+
         // Get product context from database
         List<Product> allProducts = productRepository.findAll();
         String productContext = buildProductContext(allProducts);
@@ -49,8 +56,13 @@ public class AiService {
                 .build();
 
         // Call OpenAI API
-        String aiResponse = openAiService.createChatCompletion(chatCompletionRequest)
-                .getChoices().get(0).getMessage().getContent();
+        var chatCompletion = openAiService.createChatCompletion(chatCompletionRequest);
+        
+        if (chatCompletion.getChoices() == null || chatCompletion.getChoices().isEmpty()) {
+            throw new RuntimeException("OpenAI API returned no response choices");
+        }
+        
+        String aiResponse = chatCompletion.getChoices().get(0).getMessage().getContent();
 
         // Build information map with context
         Map<String, Object> information = new HashMap<>();

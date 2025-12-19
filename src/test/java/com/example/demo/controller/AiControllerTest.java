@@ -84,4 +84,28 @@ class AiControllerTest {
                 .andExpect(jsonPath("$.information.model").value("gpt-3.5-turbo"))
                 .andExpect(jsonPath("$.information.productsAvailable").value(25));
     }
+
+    @Test
+    void testChat_WithEmptyMessage() throws Exception {
+        // Arrange
+        String requestBody = "{\"message\": \"\"}";
+
+        // Act & Assert
+        mockMvc.perform(post("/api/ai/chat")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testChat_WithNullMessage() throws Exception {
+        // Arrange
+        String requestBody = "{\"message\": null}";
+
+        // Act & Assert
+        mockMvc.perform(post("/api/ai/chat")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isBadRequest());
+    }
 }

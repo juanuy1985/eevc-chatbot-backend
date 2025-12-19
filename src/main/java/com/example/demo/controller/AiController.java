@@ -20,6 +20,9 @@ public class AiController {
 
     @PostMapping("/chat")
     public ResponseEntity<ChatResponse> chat(@RequestBody ChatRequest request) {
+        if (request == null || request.getMessage() == null || request.getMessage().trim().isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
         ChatResponse response = aiService.chat(request.getMessage());
         return ResponseEntity.ok(response);
     }
