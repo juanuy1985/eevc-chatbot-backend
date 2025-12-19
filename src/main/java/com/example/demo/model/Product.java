@@ -5,6 +5,8 @@ public class Product {
     private String tipoProducto;
     private String nombreProducto;
     private int cantidadStock;
+    private double precioUnitario;
+    private double precioXMayor;
 
     public Product() {
     }
@@ -14,6 +16,15 @@ public class Product {
         this.tipoProducto = tipoProducto;
         this.nombreProducto = nombreProducto;
         this.cantidadStock = cantidadStock;
+    }
+
+    public Product(String codigoProducto, String tipoProducto, String nombreProducto, int cantidadStock, double precioUnitario, double precioXMayor) {
+        this.codigoProducto = codigoProducto;
+        this.tipoProducto = tipoProducto;
+        this.nombreProducto = nombreProducto;
+        this.cantidadStock = cantidadStock;
+        this.precioUnitario = precioUnitario;
+        this.precioXMayor = precioXMayor;
     }
 
     public String getCodigoProducto() {
@@ -46,5 +57,21 @@ public class Product {
 
     public void setCantidadStock(int cantidadStock) {
         this.cantidadStock = cantidadStock;
+    }
+
+    public double getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
+    public double getPrecioXMayor() {
+        return precioXMayor;
+    }
+
+    public void setPrecioXMayor(double precioXMayor) {
+        this.precioXMayor = precioXMayor;
     }
 }

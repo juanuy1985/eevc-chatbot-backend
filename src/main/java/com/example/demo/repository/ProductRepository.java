@@ -1,23 +1,47 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Product;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepository {
     private final List<Product> products = new ArrayList<>();
+    private final Map<String, String> typeToFileMap = new HashMap<>();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public ProductRepository() {
-        // Initialize with sample data
-        products.add(new Product("001", "perno", "Perno Hexagonal 1/4 * 4", 1000));
-        products.add(new Product("002", "perno", "Perno Hexagonal 1/4 * 5", 800));
-        products.add(new Product("003", "tuerca", "Tuerca Hexagonal 1/4", 1500));
-        products.add(new Product("004", "perno", "Perno Hexagonal 3/8 * 6", 600));
-        products.add(new Product("005", "arandela", "Arandela Plana 1/4", 2000));
+        // Map product types to their corresponding JSON files
+        typeToFileMap.put("perno", "database/pernos.json");
+        typeToFileMap.put("tuerca", "database/tuercas.json");
+        typeToFileMap.put("volanda", "database/volandas.json");
+
+        // Load products from all JSON files
+        loadProductsFromJsonFiles();
+    }
+
+    private void loadProductsFromJsonFiles() {
+        for (String jsonFile : typeToFileMap.values()) {
+            try {
+                ClassPathResource resource = new ClassPathResource(jsonFile);
+                try (InputStream inputStream = resource.getInputStream()) {
+                    List<Product> loadedProducts = objectMapper.readValue(inputStream, new TypeReference<List<Product>>() {});
+                    products.addAll(loadedProducts);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to load products from " + jsonFile, e);
+            }
+        }
     }
 
     public List<Product> findByTipoProducto(String tipoProducto) {
