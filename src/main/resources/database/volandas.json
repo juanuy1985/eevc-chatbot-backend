@@ -1,0 +1,50 @@
+[
+  {
+    "codigoProducto": "V-001",
+    "tipoProducto": "volanda",
+    "nombreProducto": "Volanda Plana 1/4\" Acero Zincado",
+    "cantidadStock": 4000,
+    "precioUnitario": 0.10,
+    "precioXMayor": 0.08
+  },
+  {
+    "codigoProducto": "V-002",
+    "tipoProducto": "volanda",
+    "nombreProducto": "Volanda Plana 3/8\" Acero Zincado",
+    "cantidadStock": 3500,
+    "precioUnitario": 0.14,
+    "precioXMayor": 0.11
+  },
+  {
+    "codigoProducto": "V-003",
+    "tipoProducto": "volanda",
+    "nombreProducto": "Volanda de Presión 1/4\"",
+    "cantidadStock": 2800,
+    "precioUnitario": 0.12,
+    "precioXMayor": 0.10
+  },
+  {
+    "codigoProducto": "V-004",
+    "tipoProducto": "volanda",
+    "nombreProducto": "Volanda de Presión 3/8\"",
+    "cantidadStock": 2200,
+    "precioUnitario": 0.16,
+    "precioXMayor": 0.13
+  },
+  {
+    "codigoProducto": "V-005",
+    "tipoProducto": "volanda",
+    "nombreProducto": "Volanda Plana M8 Inoxidable",
+    "cantidadStock": 1500,
+    "precioUnitario": 0.25,
+    "precioXMayor": 0.21
+  },
+  {
+    "codigoProducto": "V-006",
+    "tipoProducto": "volanda",
+    "nombreProducto": "Volanda Plana M10 Inoxidable",
+    "cantidadStock": 1300,
+    "precioUnitario": 0.30,
+    "precioXMayor": 0.25
+  }
+]

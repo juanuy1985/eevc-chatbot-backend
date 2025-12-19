@@ -1,0 +1,50 @@
+[
+  {
+    "codigoProducto": "T-001",
+    "tipoProducto": "tuerca",
+    "nombreProducto": "Tuerca Hexagonal 1/4\" Acero Zincado",
+    "cantidadStock": 3000,
+    "precioUnitario": 0.15,
+    "precioXMayor": 0.12
+  },
+  {
+    "codigoProducto": "T-002",
+    "tipoProducto": "tuerca",
+    "nombreProducto": "Tuerca Hexagonal 3/8\" Acero Zincado",
+    "cantidadStock": 2500,
+    "precioUnitario": 0.22,
+    "precioXMayor": 0.18
+  },
+  {
+    "codigoProducto": "T-003",
+    "tipoProducto": "tuerca",
+    "nombreProducto": "Tuerca de Seguridad Nylon 5/16\"",
+    "cantidadStock": 1800,
+    "precioUnitario": 0.35,
+    "precioXMayor": 0.30
+  },
+  {
+    "codigoProducto": "T-004",
+    "tipoProducto": "tuerca",
+    "nombreProducto": "Tuerca Mariposa M6",
+    "cantidadStock": 900,
+    "precioUnitario": 0.40,
+    "precioXMayor": 0.34
+  },
+  {
+    "codigoProducto": "T-005",
+    "tipoProducto": "tuerca",
+    "nombreProducto": "Tuerca Ciega M8 Decorativa",
+    "cantidadStock": 700,
+    "precioUnitario": 0.55,
+    "precioXMayor": 0.47
+  },
+  {
+    "codigoProducto": "T-006",
+    "tipoProducto": "tuerca",
+    "nombreProducto": "Tuerca Flangeada M10 Dentada",
+    "cantidadStock": 650,
+    "precioUnitario": 0.65,
+    "precioXMayor": 0.56
+  }
+]

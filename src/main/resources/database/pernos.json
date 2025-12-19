@@ -1,0 +1,50 @@
+[
+  {
+    "codigoProducto": "P-001",
+    "tipoProducto": "perno",
+    "nombreProducto": "Perno Hexagonal 1/4\" x 2\" Acero Zincado",
+    "cantidadStock": 1200,
+    "precioUnitario": 0.45,
+    "precioXMayor": 0.38
+  },
+  {
+    "codigoProducto": "P-002",
+    "tipoProducto": "perno",
+    "nombreProducto": "Perno Hexagonal 1/4\" x 4\" Acero Zincado",
+    "cantidadStock": 950,
+    "precioUnitario": 0.60,
+    "precioXMayor": 0.50
+  },
+  {
+    "codigoProducto": "P-003",
+    "tipoProducto": "perno",
+    "nombreProducto": "Perno Hexagonal 3/8\" x 3\" Alta Resistencia",
+    "cantidadStock": 600,
+    "precioUnitario": 0.85,
+    "precioXMayor": 0.72
+  },
+  {
+    "codigoProducto": "P-004",
+    "tipoProducto": "perno",
+    "nombreProducto": "Perno Carrocero 5/16\" x 2 1/2\"",
+    "cantidadStock": 400,
+    "precioUnitario": 0.90,
+    "precioXMayor": 0.78
+  },
+  {
+    "codigoProducto": "P-005",
+    "tipoProducto": "perno",
+    "nombreProducto": "Perno Allen M8 x 30 mm Cabeza Cilíndrica",
+    "cantidadStock": 800,
+    "precioUnitario": 0.70,
+    "precioXMayor": 0.60
+  },
+  {
+    "codigoProducto": "P-006",
+    "tipoProducto": "perno",
+    "nombreProducto": "Perno Allen M10 x 50 mm Cabeza Avellanada",
+    "cantidadStock": 500,
+    "precioUnitario": 0.95,
+    "precioXMayor": 0.82
+  }
+]
