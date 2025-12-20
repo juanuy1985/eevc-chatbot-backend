@@ -53,4 +53,24 @@ public class ProductRepository {
     public List<Product> findAll() {
         return new ArrayList<>(products);
     }
+
+    public List<Product> findByProductNameKeywords(List<String> keywords) {
+        if (keywords == null || keywords.isEmpty()) {
+            return new ArrayList<>();
+        }
+        
+        // Preprocess keywords to lowercase for case-insensitive comparison
+        List<String> lowerKeywords = keywords.stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+        
+        return products.stream()
+                .filter(product -> {
+                    String productNameLower = product.getNombreProducto().toLowerCase();
+                    // A product matches if its name contains any of the keywords
+                    return lowerKeywords.stream()
+                            .anyMatch(productNameLower::contains);
+                })
+                .collect(Collectors.toList());
+    }
 }
