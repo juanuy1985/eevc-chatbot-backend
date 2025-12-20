@@ -59,18 +59,36 @@ public class ProductRepository {
             return new ArrayList<>();
         }
         
-        // Preprocess keywords to lowercase for case-insensitive comparison
-        List<String> lowerKeywords = keywords.stream()
-                .map(String::toLowerCase)
+        // Preprocess keywords to lowercase and normalize for flexible matching
+        List<String> normalizedKeywords = keywords.stream()
+                .map(this::normalizeKeyword)
                 .collect(Collectors.toList());
         
         return products.stream()
                 .filter(product -> {
-                    String productNameLower = product.getNombreProducto().toLowerCase();
-                    // A product matches if its name contains any of the keywords
-                    return lowerKeywords.stream()
-                            .anyMatch(productNameLower::contains);
+                    String normalizedProductName = normalizeKeyword(product.getNombreProducto());
+                    // A product matches if its normalized name contains any of the normalized keywords
+                    return normalizedKeywords.stream()
+                            .anyMatch(normalizedProductName::contains);
                 })
                 .collect(Collectors.toList());
+    }
+    
+    /**
+     * Normalize a keyword or product name for flexible matching.
+     * - Convert to lowercase
+     * - Remove quotes and special characters
+     * - Remove all spaces for consistent matching
+     * This helps match "1/4x2" with "1/4\" x 2\"" and similar variations
+     */
+    private String normalizeKeyword(String text) {
+        if (text == null) {
+            return "";
+        }
+        return text.toLowerCase()
+                .replace("\"", "")  // Remove quotes
+                .replace("'", "")   // Remove single quotes
+                .replaceAll("\\s+", "")  // Remove all spaces for consistent matching
+                .trim();
     }
 }
