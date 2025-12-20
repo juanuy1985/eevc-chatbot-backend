@@ -83,6 +83,11 @@ public class AiService {
                 "  \"items\": [{\"name\": \"product1\", \"quantity\": 10}, {\"name\": \"product2\", \"quantity\": 5}, ...],\n" +
                 "  \"message\": \"A natural message saying you're processing the purchase\"\n" +
                 "}\n\n" +
+                "For unclear or unrelated requests, respond with:\n" +
+                "{\n" +
+                "  \"requestType\": \"unknown\",\n" +
+                "  \"message\": \"Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?\"\n" +
+                "}\n\n" +
                 "Complete Product Catalog:\n" + productContext;
 
         // Concatenate client context to user message
@@ -157,9 +162,9 @@ public class AiService {
                 }
                 information.put("response", items);
             } else {
-                // Fallback for unexpected format
+                // Fallback for unknown or unclear requests
                 information.put("type", "unknown");
-                information.put("response", aiResponse);
+                information.put("response", message);
             }
             
             return new ChatResponse(codigoCliente, message, information);
@@ -169,11 +174,11 @@ public class AiService {
             System.err.println("Failed to parse AI response as JSON: " + aiResponse);
             System.err.println("Error: " + e.getMessage());
             
-            // If not valid JSON, return as plain response
+            // If not valid JSON, return a consistent response structure
             Map<String, Object> information = new HashMap<>();
             information.put("type", "unknown");
-            information.put("response", aiResponse);
-            return new ChatResponse(codigoCliente, aiResponse, information);
+            information.put("response", "Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?");
+            return new ChatResponse(codigoCliente, "Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?", information);
         }
     }
 

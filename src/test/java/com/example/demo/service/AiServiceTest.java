@@ -159,4 +159,57 @@ class AiServiceTest {
         assertFalse(products.stream().anyMatch(p -> p.getCodigoProducto().equals("P-003")));
         assertFalse(products.stream().anyMatch(p -> p.getCodigoProducto().equals("V-001")));
     }
+
+    @Test
+    void testParseAiResponse_WithUnknownRequestType() throws Exception {
+        // Setup mock products
+        Product perno1 = new Product("P-001", "perno", "Perno Hexagonal 1/4\" x 2\" Acero Zincado", 1200, 0.45, 0.38);
+        List<Product> allProducts = Arrays.asList(perno1);
+
+        // Simulate AI response with unknown requestType
+        String aiResponseJson = "{"
+                + "\"requestType\": \"unknown\","
+                + "\"message\": \"Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?\""
+                + "}";
+
+        // Use reflection to call private parseAiResponse method
+        Method parseMethod = AiService.class.getDeclaredMethod("parseAiResponse", String.class, String.class, List.class);
+        parseMethod.setAccessible(true);
+        ChatResponse response = (ChatResponse) parseMethod.invoke(aiService, aiResponseJson, "CLI-002", allProducts);
+
+        // Assertions
+        assertNotNull(response);
+        assertEquals("CLI-002", response.getClient());
+        assertEquals("Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?", response.getResponseMessage());
+
+        Map<String, Object> information = response.getInformation();
+        assertNotNull(information);
+        assertEquals("unknown", information.get("type"));
+        assertEquals("Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?", information.get("response"));
+    }
+
+    @Test
+    void testParseAiResponse_WithInvalidJson() throws Exception {
+        // Setup mock products
+        Product perno1 = new Product("P-001", "perno", "Perno Hexagonal 1/4\" x 2\" Acero Zincado", 1200, 0.45, 0.38);
+        List<Product> allProducts = Arrays.asList(perno1);
+
+        // Simulate invalid JSON response
+        String aiResponseJson = "This is not valid JSON at all";
+
+        // Use reflection to call private parseAiResponse method
+        Method parseMethod = AiService.class.getDeclaredMethod("parseAiResponse", String.class, String.class, List.class);
+        parseMethod.setAccessible(true);
+        ChatResponse response = (ChatResponse) parseMethod.invoke(aiService, aiResponseJson, "CLI-002", allProducts);
+
+        // Assertions
+        assertNotNull(response);
+        assertEquals("CLI-002", response.getClient());
+        assertEquals("Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?", response.getResponseMessage());
+
+        Map<String, Object> information = response.getInformation();
+        assertNotNull(information);
+        assertEquals("unknown", information.get("type"));
+        assertEquals("Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?", information.get("response"));
+    }
 }
