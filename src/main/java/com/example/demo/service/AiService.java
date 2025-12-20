@@ -119,11 +119,16 @@ public class AiService {
             if ("request_info".equals(requestType)) {
                 // Request for prices or stock
                 information.put("type", "request_info");
-                List<String> products = new ArrayList<>();
+                List<Product> productDetails = new ArrayList<>();
                 if (jsonNode.has("products") && jsonNode.get("products").isArray()) {
-                    jsonNode.get("products").forEach(node -> products.add(node.asText()));
+                    jsonNode.get("products").forEach(node -> {
+                        String productType = node.asText();
+                        // Fetch all products of this type from the repository
+                        List<Product> products = productRepository.findByTipoProducto(productType);
+                        productDetails.addAll(products);
+                    });
                 }
-                information.put("response", products);
+                information.put("response", productDetails);
             } else if ("purchase".equals(requestType)) {
                 // Purchase request
                 information.put("type", "purchase");
