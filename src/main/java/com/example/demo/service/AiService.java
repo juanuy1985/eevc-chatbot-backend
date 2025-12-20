@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class AiService {
@@ -56,35 +57,33 @@ public class AiService {
             client.getEmail()
         );
 
-        // Get product context from database
+        // STEP 1: Load ALL product information from the database
         List<Product> allProducts = productRepository.findAll();
-        String productContext = buildProductContext(allProducts);
+        String productContext = buildDetailedProductContext(allProducts);
 
-        // Build the system message with product and client context
+        // Build the system message with complete product information
         String systemMessage = "You are a helpful assistant for an e-commerce store that sells three types of products: perno, tuerca, and volanda. " +
-                "Analyze the user's request and respond in JSON format.\n\n" +
+                "You have access to the complete product catalog below.\n\n" +
+                "Analyze the user's request and filter the products that match what the user is asking for.\n\n" +
                 "For requests about prices or stock information, respond with:\n" +
                 "{\n" +
                 "  \"requestType\": \"request_info\",\n" +
-                "  \"productKeywords\": [\"keyword1\", \"keyword2\", ...],\n" +
-                "  \"message\": \"A natural message saying you're retrieving the information\"\n" +
+                "  \"productCodes\": [\"P-001\", \"P-002\", \"V-005\", ...],\n" +
+                "  \"message\": \"Estoy recuperando la información de precios y stock\"\n" +
                 "}\n\n" +
-                "IMPORTANT: In productKeywords, extract ALL relevant identifying terms from the user's request. Be comprehensive and include:\n" +
-                "- Size specifications (e.g., '1/4x2', '1/4 x 2', 'M8', '3/8')\n" +
-                "- Product types (e.g., 'hexagonal', 'plana', 'presion', 'presión')\n" +
-                "- Material types when mentioned\n" +
+                "IMPORTANT: In productCodes, include ONLY the product codes (codigoProducto) of products that match the user's request. " +
+                "Analyze the user's message carefully and match against product names, types, sizes, and specifications.\n" +
                 "For example:\n" +
-                "- 'Perno Hexagonal 1/4x2' → extract ['hexagonal', '1/4', 'x 2', '1/4x2']\n" +
-                "- 'Volanda Plana M8' → extract ['plana', 'M8', 'm8']\n" +
-                "- 'volanda de presion 3/8' → extract ['presion', 'presión', '3/8', '3 / 8']\n" +
-                "Include multiple variations to maximize matching success.\n\n" +
+                "- User asks for 'Perno Hexagonal 1/4x2' → return [\"P-001\"] if that product exists\n" +
+                "- User asks for 'volandas Planas M8' → return codes of all M8 flat volandas\n" +
+                "- User asks for multiple items → return codes of ALL matching products\n\n" +
                 "For purchase requests, respond with:\n" +
                 "{\n" +
                 "  \"requestType\": \"purchase\",\n" +
                 "  \"items\": [{\"name\": \"product1\", \"quantity\": 10}, {\"name\": \"product2\", \"quantity\": 5}, ...],\n" +
                 "  \"message\": \"A natural message saying you're processing the purchase\"\n" +
                 "}\n\n" +
-                "Product context: " + productContext;
+                "Complete Product Catalog:\n" + productContext;
 
         // Concatenate client context to user message
         String enhancedMessage = clientContext + "\n\nUser request: " + userMessage;
@@ -98,8 +97,8 @@ public class AiService {
         ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
                 .model("gpt-3.5-turbo")
                 .messages(messages)
-                .maxTokens(500)
-                .temperature(0.7)
+                .maxTokens(1000)
+                .temperature(0.3)
                 .build();
 
         // Call OpenAI API
@@ -111,11 +110,11 @@ public class AiService {
         
         String aiResponse = chatCompletion.getChoices().get(0).getMessage().getContent();
 
-        // Parse AI response and build structured response
-        return parseAiResponse(aiResponse, client.getCodigoCliente());
+        // Parse AI response and build structured response with filtered products
+        return parseAiResponse(aiResponse, client.getCodigoCliente(), allProducts);
     }
 
-    private ChatResponse parseAiResponse(String aiResponse, String codigoCliente) {
+    private ChatResponse parseAiResponse(String aiResponse, String codigoCliente, List<Product> allProducts) {
         try {
             // Try to parse as JSON
             JsonNode jsonNode = objectMapper.readTree(aiResponse);
@@ -126,17 +125,19 @@ public class AiService {
             Map<String, Object> information = new HashMap<>();
             
             if ("request_info".equals(requestType)) {
-                // Request for prices or stock
+                // Request for prices or stock - filter products by codes returned from AI
                 information.put("type", "request_info");
                 List<Product> productDetails = new ArrayList<>();
-                if (jsonNode.has("productKeywords") && jsonNode.get("productKeywords").isArray()) {
-                    List<String> keywords = new ArrayList<>();
-                    jsonNode.get("productKeywords").forEach(node -> {
-                        keywords.add(node.asText());
+                if (jsonNode.has("productCodes") && jsonNode.get("productCodes").isArray()) {
+                    List<String> productCodes = new ArrayList<>();
+                    jsonNode.get("productCodes").forEach(node -> {
+                        productCodes.add(node.asText());
                     });
-                    // Fetch products matching any of the keywords
-                    if (!keywords.isEmpty()) {
-                        productDetails = productRepository.findByProductNameKeywords(keywords);
+                    // Filter products by the codes returned from AI
+                    if (!productCodes.isEmpty()) {
+                        productDetails = allProducts.stream()
+                                .filter(product -> productCodes.contains(product.getCodigoProducto()))
+                                .collect(Collectors.toList());
                     }
                 }
                 information.put("response", productDetails);
@@ -188,6 +189,27 @@ public class AiService {
 
         for (Map.Entry<String, List<Product>> entry : productsByType.entrySet()) {
             context.append(entry.getKey()).append(" (").append(entry.getValue().size()).append(" items), ");
+        }
+
+        return context.toString();
+    }
+
+    /**
+     * Build detailed product context with complete information for AI filtering
+     */
+    private String buildDetailedProductContext(List<Product> products) {
+        StringBuilder context = new StringBuilder();
+        
+        for (Product product : products) {
+            context.append(String.format(
+                "Code: %s, Type: %s, Name: %s, Stock: %d, Unit Price: %.2f, Wholesale Price: %.2f\n",
+                product.getCodigoProducto(),
+                product.getTipoProducto(),
+                product.getNombreProducto(),
+                product.getCantidadStock(),
+                product.getPrecioUnitario(),
+                product.getPrecioXMayor()
+            ));
         }
 
         return context.toString();

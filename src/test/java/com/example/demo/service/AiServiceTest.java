@@ -36,26 +36,26 @@ class AiServiceTest {
 
     @Test
     void testParseAiResponse_ReturnsFullProductDetails() throws Exception {
-        // Setup mock products
+        // Setup mock products - this is the complete product list
         Product perno1 = new Product("P-001", "perno", "Perno Hexagonal 1/4\" x 2\" Acero Zincado", 1200, 0.45, 0.38);
         Product perno2 = new Product("P-002", "perno", "Perno Hexagonal 1/4\" x 4\" Acero Zincado", 950, 0.60, 0.50);
         Product volanda1 = new Product("V-005", "volanda", "Volanda Plana M8 Inoxidable", 1500, 0.25, 0.21);
         Product volanda2 = new Product("V-004", "volanda", "Volanda de Presión 3/8\"", 2200, 0.16, 0.13);
+        Product perno3 = new Product("P-003", "perno", "Perno Hexagonal 3/8\" x 3\" Alta Resistencia", 600, 0.85, 0.72);
+        
+        List<Product> allProducts = Arrays.asList(perno1, perno2, volanda1, volanda2, perno3);
 
-        // Mock findByProductNameKeywords to return specific products based on keywords
-        when(productRepository.findByProductNameKeywords(any())).thenReturn(Arrays.asList(perno1, perno2, volanda1, volanda2));
-
-        // Simulate AI response JSON with specific product keywords
+        // Simulate AI response JSON with specific product codes (new format)
         String aiResponseJson = "{"
                 + "\"requestType\": \"request_info\","
-                + "\"productKeywords\": [\"1/4\\\" x 2\\\"\", \"1/4\\\" x 4\\\"\", \"M8\", \"presión 3/8\"],"
+                + "\"productCodes\": [\"P-001\", \"P-002\", \"V-005\", \"V-004\"],"
                 + "\"message\": \"Estoy recuperando la información de precios y stock\""
                 + "}";
 
-        // Use reflection to call private parseAiResponse method
-        Method parseMethod = AiService.class.getDeclaredMethod("parseAiResponse", String.class, String.class);
+        // Use reflection to call private parseAiResponse method with new signature
+        Method parseMethod = AiService.class.getDeclaredMethod("parseAiResponse", String.class, String.class, List.class);
         parseMethod.setAccessible(true);
-        ChatResponse response = (ChatResponse) parseMethod.invoke(aiService, aiResponseJson, "CLI-002");
+        ChatResponse response = (ChatResponse) parseMethod.invoke(aiService, aiResponseJson, "CLI-002", allProducts);
 
         // Assertions
         assertNotNull(response);
@@ -74,7 +74,7 @@ class AiServiceTest {
         @SuppressWarnings("unchecked")
         List<Product> products = (List<Product>) responseObj;
         
-        // Should contain 4 products (2 pernos + 2 volandas)
+        // Should contain 4 products (2 pernos + 2 volandas), excluding P-003
         assertEquals(4, products.size());
 
         // Verify first product is a complete Product object with all fields
@@ -89,20 +89,21 @@ class AiServiceTest {
 
     @Test
     void testParseAiResponse_WithEmptyProducts() throws Exception {
-        // Setup mock products - return empty list
-        when(productRepository.findByProductNameKeywords(any())).thenReturn(Arrays.asList());
+        // Setup mock products - complete list but AI returns empty product codes
+        Product perno1 = new Product("P-001", "perno", "Perno Hexagonal 1/4\" x 2\" Acero Zincado", 1200, 0.45, 0.38);
+        List<Product> allProducts = Arrays.asList(perno1);
 
-        // Simulate AI response JSON with products
+        // Simulate AI response JSON with empty product codes
         String aiResponseJson = "{"
                 + "\"requestType\": \"request_info\","
-                + "\"productKeywords\": [\"nonexistent\"],"
+                + "\"productCodes\": [],"
                 + "\"message\": \"Searching for products\""
                 + "}";
 
-        // Use reflection to call private parseAiResponse method
-        Method parseMethod = AiService.class.getDeclaredMethod("parseAiResponse", String.class, String.class);
+        // Use reflection to call private parseAiResponse method with new signature
+        Method parseMethod = AiService.class.getDeclaredMethod("parseAiResponse", String.class, String.class, List.class);
         parseMethod.setAccessible(true);
-        ChatResponse response = (ChatResponse) parseMethod.invoke(aiService, aiResponseJson, "CLI-002");
+        ChatResponse response = (ChatResponse) parseMethod.invoke(aiService, aiResponseJson, "CLI-002", allProducts);
 
         // Assertions
         assertNotNull(response);
@@ -110,32 +111,34 @@ class AiServiceTest {
         @SuppressWarnings("unchecked")
         List<Product> products = (List<Product>) information.get("response");
         
-        // Should be empty since no products found
+        // Should be empty since no product codes provided
         assertEquals(0, products.size());
     }
 
     @Test
-    void testParseAiResponse_WithSpecificKeywords_ReturnsOnlyMatchingProducts() throws Exception {
-        // Setup mock products - only return products that match specific keywords
+    void testParseAiResponse_WithSpecificCodes_ReturnsOnlyMatchingProducts() throws Exception {
+        // Setup all mock products
         Product perno1 = new Product("P-001", "perno", "Perno Hexagonal 1/4\" x 2\" Acero Zincado", 1200, 0.45, 0.38);
         Product perno2 = new Product("P-002", "perno", "Perno Hexagonal 1/4\" x 4\" Acero Zincado", 950, 0.60, 0.50);
+        Product perno3 = new Product("P-003", "perno", "Perno Hexagonal 3/8\" x 3\" Alta Resistencia", 600, 0.85, 0.72);
         Product volanda1 = new Product("V-005", "volanda", "Volanda Plana M8 Inoxidable", 1500, 0.25, 0.21);
         Product volanda2 = new Product("V-004", "volanda", "Volanda de Presión 3/8\"", 2200, 0.16, 0.13);
+        Product volanda3 = new Product("V-001", "volanda", "Volanda Extra M10", 1000, 0.30, 0.25);
 
-        // Mock to return only the 4 specific products that match the keywords
-        when(productRepository.findByProductNameKeywords(any())).thenReturn(Arrays.asList(perno1, perno2, volanda1, volanda2));
+        // Complete product list
+        List<Product> allProducts = Arrays.asList(perno1, perno2, perno3, volanda1, volanda2, volanda3);
 
-        // Simulate AI response with specific keywords
+        // Simulate AI response with specific product codes (AI filtered to only these 4)
         String aiResponseJson = "{"
                 + "\"requestType\": \"request_info\","
-                + "\"productKeywords\": [\"1/4\\\" x 2\\\"\", \"1/4\\\" x 4\\\"\", \"M8\", \"presión 3/8\"],"
+                + "\"productCodes\": [\"P-001\", \"P-002\", \"V-005\", \"V-004\"],"
                 + "\"message\": \"Estoy recuperando la información de precios y stock\""
                 + "}";
 
-        // Use reflection to call private parseAiResponse method
-        Method parseMethod = AiService.class.getDeclaredMethod("parseAiResponse", String.class, String.class);
+        // Use reflection to call private parseAiResponse method with new signature
+        Method parseMethod = AiService.class.getDeclaredMethod("parseAiResponse", String.class, String.class, List.class);
         parseMethod.setAccessible(true);
-        ChatResponse response = (ChatResponse) parseMethod.invoke(aiService, aiResponseJson, "CLI-002");
+        ChatResponse response = (ChatResponse) parseMethod.invoke(aiService, aiResponseJson, "CLI-002", allProducts);
 
         // Assertions
         assertNotNull(response);
@@ -143,7 +146,7 @@ class AiServiceTest {
         @SuppressWarnings("unchecked")
         List<Product> products = (List<Product>) information.get("response");
         
-        // Should contain exactly 4 products matching the keywords
+        // Should contain exactly 4 products matching the codes returned by AI
         assertEquals(4, products.size());
         
         // Verify the correct products are returned
@@ -152,7 +155,7 @@ class AiServiceTest {
         assertTrue(products.stream().anyMatch(p -> p.getCodigoProducto().equals("V-005")));
         assertTrue(products.stream().anyMatch(p -> p.getCodigoProducto().equals("V-004")));
         
-        // Verify we DON'T have other products like P-003, P-004, etc.
+        // Verify we DON'T have other products like P-003, V-001 that were not in the AI response
         assertFalse(products.stream().anyMatch(p -> p.getCodigoProducto().equals("P-003")));
         assertFalse(products.stream().anyMatch(p -> p.getCodigoProducto().equals("V-001")));
     }
