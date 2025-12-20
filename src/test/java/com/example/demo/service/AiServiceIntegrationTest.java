@@ -93,18 +93,21 @@ class AiServiceIntegrationTest {
         // We use reflection to test the private parseAiResponse method
         AiService aiService = new AiService(TEST_API_KEY, productRepository);
         
-        // Simulate an AI response with specific product keywords
-        // This is what the AI would return after analyzing the user request
+        // Get all products from the real repository (this is what the new strategy does)
+        List<Product> allProducts = productRepository.findAll();
+        
+        // Simulate an AI response with specific product codes
+        // This is what the AI would return after analyzing the user request and filtering from all products
         String aiResponseJson = "{"
                 + "\"requestType\": \"request_info\","
-                + "\"productKeywords\": [\"1/4\\\" x 2\\\"\", \"1/4\\\" x 4\\\"\", \"Plana M8\", \"Presión 3/8\"],"
+                + "\"productCodes\": [\"P-001\", \"P-002\", \"V-005\", \"V-004\"],"
                 + "\"message\": \"Estoy recuperando la información de precios y stock\""
                 + "}";
         
-        // Use reflection to call the private parseAiResponse method
-        Method parseMethod = AiService.class.getDeclaredMethod("parseAiResponse", String.class, String.class);
+        // Use reflection to call the private parseAiResponse method with new signature
+        Method parseMethod = AiService.class.getDeclaredMethod("parseAiResponse", String.class, String.class, List.class);
         parseMethod.setAccessible(true);
-        ChatResponse response = (ChatResponse) parseMethod.invoke(aiService, aiResponseJson, "CLI-002");
+        ChatResponse response = (ChatResponse) parseMethod.invoke(aiService, aiResponseJson, "CLI-002", allProducts);
         
         // Verify the response
         assertNotNull(response);
@@ -120,7 +123,7 @@ class AiServiceIntegrationTest {
         
         // The critical assertion: we should get exactly 4 products, not 12 (all pernos and volandas)
         assertEquals(4, products.size(), 
-                "Response should contain exactly 4 products matching the specific keywords, not all 12 pernos and volandas");
+                "Response should contain exactly 4 products matching the specific codes, not all 12 pernos and volandas");
         
         // Verify product details are complete (as per the issue's expected response)
         for (Product product : products) {
