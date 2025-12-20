@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class AiService {
+    private static final String UNKNOWN_REQUEST_MESSAGE = "Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?";
+    
     private final OpenAiService openAiService;
     private final ProductRepository productRepository;
     private final ObjectMapper objectMapper;
@@ -82,6 +84,11 @@ public class AiService {
                 "  \"requestType\": \"purchase\",\n" +
                 "  \"items\": [{\"name\": \"product1\", \"quantity\": 10}, {\"name\": \"product2\", \"quantity\": 5}, ...],\n" +
                 "  \"message\": \"A natural message saying you're processing the purchase\"\n" +
+                "}\n\n" +
+                "For unclear or unrelated requests, respond with:\n" +
+                "{\n" +
+                "  \"requestType\": \"unknown\",\n" +
+                "  \"message\": \"" + UNKNOWN_REQUEST_MESSAGE + "\"\n" +
                 "}\n\n" +
                 "Complete Product Catalog:\n" + productContext;
 
@@ -157,9 +164,9 @@ public class AiService {
                 }
                 information.put("response", items);
             } else {
-                // Fallback for unexpected format
+                // Fallback for unknown or unclear requests
                 information.put("type", "unknown");
-                information.put("response", aiResponse);
+                information.put("response", message);
             }
             
             return new ChatResponse(codigoCliente, message, information);
@@ -169,11 +176,11 @@ public class AiService {
             System.err.println("Failed to parse AI response as JSON: " + aiResponse);
             System.err.println("Error: " + e.getMessage());
             
-            // If not valid JSON, return as plain response
+            // If not valid JSON, return a consistent response structure
             Map<String, Object> information = new HashMap<>();
             information.put("type", "unknown");
-            information.put("response", aiResponse);
-            return new ChatResponse(codigoCliente, aiResponse, information);
+            information.put("response", UNKNOWN_REQUEST_MESSAGE);
+            return new ChatResponse(codigoCliente, UNKNOWN_REQUEST_MESSAGE, information);
         }
     }
 

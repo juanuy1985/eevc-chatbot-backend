@@ -21,6 +21,7 @@ import static org.mockito.Mockito.when;
 class AiServiceTest {
 
     private static final String TEST_API_KEY = "sk-1234567890123456789012345678901234567890123456789012";
+    private static final String UNKNOWN_REQUEST_MESSAGE = "Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?";
 
     @Mock
     private ProductRepository productRepository;
@@ -158,5 +159,58 @@ class AiServiceTest {
         // Verify we DON'T have other products like P-003, V-001 that were not in the AI response
         assertFalse(products.stream().anyMatch(p -> p.getCodigoProducto().equals("P-003")));
         assertFalse(products.stream().anyMatch(p -> p.getCodigoProducto().equals("V-001")));
+    }
+
+    @Test
+    void testParseAiResponse_WithUnknownRequestType() throws Exception {
+        // Setup mock products
+        Product perno1 = new Product("P-001", "perno", "Perno Hexagonal 1/4\" x 2\" Acero Zincado", 1200, 0.45, 0.38);
+        List<Product> allProducts = Arrays.asList(perno1);
+
+        // Simulate AI response with unknown requestType
+        String aiResponseJson = "{"
+                + "\"requestType\": \"unknown\","
+                + "\"message\": \"" + UNKNOWN_REQUEST_MESSAGE + "\""
+                + "}";
+
+        // Use reflection to call private parseAiResponse method
+        Method parseMethod = AiService.class.getDeclaredMethod("parseAiResponse", String.class, String.class, List.class);
+        parseMethod.setAccessible(true);
+        ChatResponse response = (ChatResponse) parseMethod.invoke(aiService, aiResponseJson, "CLI-002", allProducts);
+
+        // Assertions
+        assertNotNull(response);
+        assertEquals("CLI-002", response.getClient());
+        assertEquals(UNKNOWN_REQUEST_MESSAGE, response.getResponseMessage());
+
+        Map<String, Object> information = response.getInformation();
+        assertNotNull(information);
+        assertEquals("unknown", information.get("type"));
+        assertEquals(UNKNOWN_REQUEST_MESSAGE, information.get("response"));
+    }
+
+    @Test
+    void testParseAiResponse_WithInvalidJson() throws Exception {
+        // Setup mock products
+        Product perno1 = new Product("P-001", "perno", "Perno Hexagonal 1/4\" x 2\" Acero Zincado", 1200, 0.45, 0.38);
+        List<Product> allProducts = Arrays.asList(perno1);
+
+        // Simulate invalid JSON response
+        String aiResponseJson = "This is not valid JSON at all";
+
+        // Use reflection to call private parseAiResponse method
+        Method parseMethod = AiService.class.getDeclaredMethod("parseAiResponse", String.class, String.class, List.class);
+        parseMethod.setAccessible(true);
+        ChatResponse response = (ChatResponse) parseMethod.invoke(aiService, aiResponseJson, "CLI-002", allProducts);
+
+        // Assertions
+        assertNotNull(response);
+        assertEquals("CLI-002", response.getClient());
+        assertEquals(UNKNOWN_REQUEST_MESSAGE, response.getResponseMessage());
+
+        Map<String, Object> information = response.getInformation();
+        assertNotNull(information);
+        assertEquals("unknown", information.get("type"));
+        assertEquals(UNKNOWN_REQUEST_MESSAGE, information.get("response"));
     }
 }
