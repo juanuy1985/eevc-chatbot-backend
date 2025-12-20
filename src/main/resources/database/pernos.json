@@ -46,5 +46,37 @@
     "cantidadStock": 500,
     "precioUnitario": 0.95,
     "precioXMayor": 0.82
+  },
+  {
+    "codigoProducto": "P-007",
+    "tipoProducto": "perno",
+    "nombreProducto": "Perno Hexagonal 1/2\" x 6\" Galvanizado",
+    "cantidadStock": 350,
+    "precioUnitario": 1.25,
+    "precioXMayor": 1.05
+  },
+  {
+    "codigoProducto": "P-008",
+    "tipoProducto": "perno",
+    "nombreProducto": "Perno Rosca Fina M12 x 40 mm",
+    "cantidadStock": 450,
+    "precioUnitario": 1.10,
+    "precioXMayor": 0.95
+  },
+  {
+    "codigoProducto": "P-009",
+    "tipoProducto": "perno",
+    "nombreProducto": "Perno U 3/8\" x 4\" con Tuercas",
+    "cantidadStock": 280,
+    "precioUnitario": 1.35,
+    "precioXMayor": 1.15
+  },
+  {
+    "codigoProducto": "P-010",
+    "tipoProducto": "perno",
+    "nombreProducto": "Perno Allen M6 x 25 mm Inoxidable",
+    "cantidadStock": 720,
+    "precioUnitario": 0.80,
+    "precioXMayor": 0.68
   }
 ]

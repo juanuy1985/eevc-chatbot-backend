@@ -21,7 +21,7 @@ class ProductRepositoryTest {
         
         assertNotNull(pernos);
         assertFalse(pernos.isEmpty());
-        assertEquals(6, pernos.size());
+        assertEquals(10, pernos.size());
         
         // Verify all products are of type "perno"
         for (Product product : pernos) {
@@ -43,7 +43,7 @@ class ProductRepositoryTest {
         
         assertNotNull(tuercas);
         assertFalse(tuercas.isEmpty());
-        assertEquals(6, tuercas.size());
+        assertEquals(10, tuercas.size());
         
         // Verify all products are of type "tuerca"
         for (Product product : tuercas) {
@@ -65,7 +65,7 @@ class ProductRepositoryTest {
         
         assertNotNull(volandas);
         assertFalse(volandas.isEmpty());
-        assertEquals(6, volandas.size());
+        assertEquals(10, volandas.size());
         
         // Verify all products are of type "volanda"
         for (Product product : volandas) {
@@ -94,8 +94,8 @@ class ProductRepositoryTest {
         List<Product> allProducts = productRepository.findAll();
         
         assertNotNull(allProducts);
-        // Total: 6 pernos + 6 tuercas + 6 volandas = 18 products
-        assertEquals(18, allProducts.size());
+        // Total: 10 pernos + 10 tuercas + 10 volandas = 30 products
+        assertEquals(30, allProducts.size());
     }
 
     @Test

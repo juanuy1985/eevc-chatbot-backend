@@ -46,5 +46,37 @@
     "cantidadStock": 650,
     "precioUnitario": 0.65,
     "precioXMayor": 0.56
+  },
+  {
+    "codigoProducto": "T-007",
+    "tipoProducto": "tuerca",
+    "nombreProducto": "Tuerca Hexagonal 1/2\" Galvanizada",
+    "cantidadStock": 2200,
+    "precioUnitario": 0.28,
+    "precioXMayor": 0.23
+  },
+  {
+    "codigoProducto": "T-008",
+    "tipoProducto": "tuerca",
+    "nombreProducto": "Tuerca de Seguridad M10 con Nylon",
+    "cantidadStock": 1600,
+    "precioUnitario": 0.42,
+    "precioXMayor": 0.36
+  },
+  {
+    "codigoProducto": "T-009",
+    "tipoProducto": "tuerca",
+    "nombreProducto": "Tuerca Mariposa M8 Zincada",
+    "cantidadStock": 850,
+    "precioUnitario": 0.48,
+    "precioXMayor": 0.41
+  },
+  {
+    "codigoProducto": "T-010",
+    "tipoProducto": "tuerca",
+    "nombreProducto": "Tuerca Autoblocante M12 Alta Resistencia",
+    "cantidadStock": 550,
+    "precioUnitario": 0.75,
+    "precioXMayor": 0.64
   }
 ]

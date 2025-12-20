@@ -46,5 +46,37 @@
     "cantidadStock": 1300,
     "precioUnitario": 0.30,
     "precioXMayor": 0.25
+  },
+  {
+    "codigoProducto": "V-007",
+    "tipoProducto": "volanda",
+    "nombreProducto": "Volanda de Presión M10 Acero",
+    "cantidadStock": 1800,
+    "precioUnitario": 0.18,
+    "precioXMayor": 0.15
+  },
+  {
+    "codigoProducto": "V-008",
+    "tipoProducto": "volanda",
+    "nombreProducto": "Volanda Plana 1/2\" Galvanizada",
+    "cantidadStock": 2500,
+    "precioUnitario": 0.22,
+    "precioXMayor": 0.18
+  },
+  {
+    "codigoProducto": "V-009",
+    "tipoProducto": "volanda",
+    "nombreProducto": "Volanda Grower 5/16\" Zincada",
+    "cantidadStock": 3200,
+    "precioUnitario": 0.15,
+    "precioXMayor": 0.12
+  },
+  {
+    "codigoProducto": "V-010",
+    "tipoProducto": "volanda",
+    "nombreProducto": "Volanda Cuadrada M8",
+    "cantidadStock": 900,
+    "precioUnitario": 0.28,
+    "precioXMayor": 0.23
   }
 ]
