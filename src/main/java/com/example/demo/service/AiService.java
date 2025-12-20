@@ -69,11 +69,15 @@ public class AiService {
                 "  \"productKeywords\": [\"keyword1\", \"keyword2\", ...],\n" +
                 "  \"message\": \"A natural message saying you're retrieving the information\"\n" +
                 "}\n\n" +
-                "IMPORTANT: In productKeywords, extract the SPECIFIC product descriptions or key identifying terms from the user's request. " +
-                "For example, if the user asks for 'Perno Hexagonal 1/4x2', include '1/4\" x 2\"' or '1/4x2' as a keyword. " +
-                "If they ask for 'Volanda Plana M8', include 'M8' as a keyword. " +
-                "If they ask for 'volanda de presion 3/8', include 'presión' and '3/8' as keywords. " +
-                "Extract size specifications, material types, and distinctive product characteristics.\n\n" +
+                "IMPORTANT: In productKeywords, extract ALL relevant identifying terms from the user's request. Be comprehensive and include:\n" +
+                "- Size specifications (e.g., '1/4x2', '1/4 x 2', 'M8', '3/8')\n" +
+                "- Product types (e.g., 'hexagonal', 'plana', 'presion', 'presión')\n" +
+                "- Material types when mentioned\n" +
+                "For example:\n" +
+                "- 'Perno Hexagonal 1/4x2' → extract ['hexagonal', '1/4', 'x 2', '1/4x2']\n" +
+                "- 'Volanda Plana M8' → extract ['plana', 'M8', 'm8']\n" +
+                "- 'volanda de presion 3/8' → extract ['presion', 'presión', '3/8', '3 / 8']\n" +
+                "Include multiple variations to maximize matching success.\n\n" +
                 "For purchase requests, respond with:\n" +
                 "{\n" +
                 "  \"requestType\": \"purchase\",\n" +
