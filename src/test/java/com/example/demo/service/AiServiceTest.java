@@ -20,6 +20,8 @@ import static org.mockito.Mockito.when;
 
 class AiServiceTest {
 
+    private static final String TEST_API_KEY = "sk-1234567890123456789012345678901234567890123456789012";
+
     @Mock
     private ProductRepository productRepository;
 
@@ -29,7 +31,7 @@ class AiServiceTest {
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
         // Create AiService with a valid-looking API key to bypass validation
-        aiService = new AiService("sk-1234567890123456789012345678901234567890123456789012", productRepository);
+        aiService = new AiService(TEST_API_KEY, productRepository);
     }
 
     @Test
