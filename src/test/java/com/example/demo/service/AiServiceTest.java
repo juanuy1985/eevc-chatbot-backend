@@ -123,7 +123,7 @@ class AiServiceTest {
         Product perno3 = new Product("P-003", "perno", "Perno Hexagonal 3/8\" x 3\" Alta Resistencia", 600, 0.85, 0.72);
         Product volanda1 = new Product("V-005", "volanda", "Volanda Plana M8 Inoxidable", 1500, 0.25, 0.21);
         Product volanda2 = new Product("V-004", "volanda", "Volanda de Presión 3/8\"", 2200, 0.16, 0.13);
-        Product volanda3 = new Product("V-001", "volanda", "Volanda Extra M10", 1000, 0.30, 0.25);
+        Product volanda3 = new Product("V-001", "volanda", "Volanda Plana 1/4\" Acero Zincado", 4000, 0.10, 0.08);
 
         // Complete product list
         List<Product> allProducts = Arrays.asList(perno1, perno2, perno3, volanda1, volanda2, volanda3);

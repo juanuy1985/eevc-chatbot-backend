@@ -177,23 +177,6 @@ public class AiService {
         }
     }
 
-    private String buildProductContext(List<Product> products) {
-        StringBuilder context = new StringBuilder();
-        context.append("Products available: ");
-        
-        // Group products by type
-        Map<String, List<Product>> productsByType = new HashMap<>();
-        for (Product product : products) {
-            productsByType.computeIfAbsent(product.getTipoProducto(), k -> new ArrayList<>()).add(product);
-        }
-
-        for (Map.Entry<String, List<Product>> entry : productsByType.entrySet()) {
-            context.append(entry.getKey()).append(" (").append(entry.getValue().size()).append(" items), ");
-        }
-
-        return context.toString();
-    }
-
     /**
      * Build detailed product context with complete information for AI filtering
      */
