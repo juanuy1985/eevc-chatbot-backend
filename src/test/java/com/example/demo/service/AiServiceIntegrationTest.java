@@ -26,6 +26,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class AiServiceIntegrationTest {
 
+    private static final String TEST_API_KEY = "sk-1234567890123456789012345678901234567890123456789012";
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -89,7 +91,6 @@ class AiServiceIntegrationTest {
     void testParseAiResponse_WithRealRepository_ReturnsOnlyMatchingProducts() throws Exception {
         // Create a minimal AiService instance for testing parseAiResponse
         // We use reflection to test the private parseAiResponse method
-        String TEST_API_KEY = "sk-1234567890123456789012345678901234567890123456789012";
         AiService aiService = new AiService(TEST_API_KEY, productRepository);
         
         // Simulate an AI response with specific product keywords

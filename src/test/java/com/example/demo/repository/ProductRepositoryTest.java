@@ -158,4 +158,12 @@ class ProductRepositoryTest {
         assertNotNull(products);
         assertTrue(products.isEmpty());
     }
+
+    @Test
+    void testFindByProductNameKeywords_NullKeywords() {
+        List<Product> products = productRepository.findByProductNameKeywords(null);
+        
+        assertNotNull(products);
+        assertTrue(products.isEmpty());
+    }
 }
