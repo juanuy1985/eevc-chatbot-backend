@@ -54,8 +54,8 @@ class ProductRepositoryNormalizationTest {
         
         assertNotNull(products);
         assertTrue(products.size() > 0, "Should find products with '3/8' even when searching for '3 / 8'");
-        assertTrue(products.stream().anyMatch(p -> p.getCodigoProducto().equals("V-004") || 
-                                                    p.getCodigoProducto().equals("V-002")),
+        assertTrue(products.stream().anyMatch(p -> 
+                java.util.Set.of("V-004", "V-002").contains(p.getCodigoProducto())),
                 "Should match products with '3/8' in name");
     }
 }

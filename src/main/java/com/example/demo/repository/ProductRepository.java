@@ -88,7 +88,6 @@ public class ProductRepository {
         return text.toLowerCase()
                 .replace("\"", "")  // Remove quotes
                 .replace("'", "")   // Remove single quotes
-                .replaceAll("\\s+", "")  // Remove all spaces for consistent matching
-                .trim();
+                .replaceAll("\\s+", "");  // Remove all spaces for consistent matching
     }
 }
