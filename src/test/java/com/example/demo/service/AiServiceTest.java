@@ -21,6 +21,7 @@ import static org.mockito.Mockito.when;
 class AiServiceTest {
 
     private static final String TEST_API_KEY = "sk-1234567890123456789012345678901234567890123456789012";
+    private static final String UNKNOWN_REQUEST_MESSAGE = "Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?";
 
     @Mock
     private ProductRepository productRepository;
@@ -169,7 +170,7 @@ class AiServiceTest {
         // Simulate AI response with unknown requestType
         String aiResponseJson = "{"
                 + "\"requestType\": \"unknown\","
-                + "\"message\": \"Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?\""
+                + "\"message\": \"" + UNKNOWN_REQUEST_MESSAGE + "\""
                 + "}";
 
         // Use reflection to call private parseAiResponse method
@@ -180,12 +181,12 @@ class AiServiceTest {
         // Assertions
         assertNotNull(response);
         assertEquals("CLI-002", response.getClient());
-        assertEquals("Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?", response.getResponseMessage());
+        assertEquals(UNKNOWN_REQUEST_MESSAGE, response.getResponseMessage());
 
         Map<String, Object> information = response.getInformation();
         assertNotNull(information);
         assertEquals("unknown", information.get("type"));
-        assertEquals("Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?", information.get("response"));
+        assertEquals(UNKNOWN_REQUEST_MESSAGE, information.get("response"));
     }
 
     @Test
@@ -205,11 +206,11 @@ class AiServiceTest {
         // Assertions
         assertNotNull(response);
         assertEquals("CLI-002", response.getClient());
-        assertEquals("Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?", response.getResponseMessage());
+        assertEquals(UNKNOWN_REQUEST_MESSAGE, response.getResponseMessage());
 
         Map<String, Object> information = response.getInformation();
         assertNotNull(information);
         assertEquals("unknown", information.get("type"));
-        assertEquals("Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?", information.get("response"));
+        assertEquals(UNKNOWN_REQUEST_MESSAGE, information.get("response"));
     }
 }

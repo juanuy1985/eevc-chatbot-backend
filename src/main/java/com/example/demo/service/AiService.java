@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class AiService {
+    private static final String UNKNOWN_REQUEST_MESSAGE = "Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?";
+    
     private final OpenAiService openAiService;
     private final ProductRepository productRepository;
     private final ObjectMapper objectMapper;
@@ -86,7 +88,7 @@ public class AiService {
                 "For unclear or unrelated requests, respond with:\n" +
                 "{\n" +
                 "  \"requestType\": \"unknown\",\n" +
-                "  \"message\": \"Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?\"\n" +
+                "  \"message\": \"" + UNKNOWN_REQUEST_MESSAGE + "\"\n" +
                 "}\n\n" +
                 "Complete Product Catalog:\n" + productContext;
 
@@ -177,8 +179,8 @@ public class AiService {
             // If not valid JSON, return a consistent response structure
             Map<String, Object> information = new HashMap<>();
             information.put("type", "unknown");
-            information.put("response", "Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?");
-            return new ChatResponse(codigoCliente, "Lo siento, no logré entender tu solicitud. ¿Puedes proporcionar más detalles o intentar reformular tu pedido?", information);
+            information.put("response", UNKNOWN_REQUEST_MESSAGE);
+            return new ChatResponse(codigoCliente, UNKNOWN_REQUEST_MESSAGE, information);
         }
     }
 
