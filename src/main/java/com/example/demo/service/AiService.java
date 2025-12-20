@@ -66,9 +66,14 @@ public class AiService {
                 "For requests about prices or stock information, respond with:\n" +
                 "{\n" +
                 "  \"requestType\": \"request_info\",\n" +
-                "  \"products\": [\"product1\", \"product2\", ...],\n" +
+                "  \"productKeywords\": [\"keyword1\", \"keyword2\", ...],\n" +
                 "  \"message\": \"A natural message saying you're retrieving the information\"\n" +
                 "}\n\n" +
+                "IMPORTANT: In productKeywords, extract the SPECIFIC product descriptions or key identifying terms from the user's request. " +
+                "For example, if the user asks for 'Perno Hexagonal 1/4x2', include '1/4\" x 2\"' or '1/4x2' as a keyword. " +
+                "If they ask for 'Volanda Plana M8', include 'M8' as a keyword. " +
+                "If they ask for 'volanda de presion 3/8', include 'presión' and '3/8' as keywords. " +
+                "Extract size specifications, material types, and distinctive product characteristics.\n\n" +
                 "For purchase requests, respond with:\n" +
                 "{\n" +
                 "  \"requestType\": \"purchase\",\n" +
@@ -120,13 +125,15 @@ public class AiService {
                 // Request for prices or stock
                 information.put("type", "request_info");
                 List<Product> productDetails = new ArrayList<>();
-                if (jsonNode.has("products") && jsonNode.get("products").isArray()) {
-                    jsonNode.get("products").forEach(node -> {
-                        String productType = node.asText();
-                        // Fetch all products of this type from the repository
-                        List<Product> products = productRepository.findByTipoProducto(productType);
-                        productDetails.addAll(products);
+                if (jsonNode.has("productKeywords") && jsonNode.get("productKeywords").isArray()) {
+                    List<String> keywords = new ArrayList<>();
+                    jsonNode.get("productKeywords").forEach(node -> {
+                        keywords.add(node.asText());
                     });
+                    // Fetch products matching any of the keywords
+                    if (!keywords.isEmpty()) {
+                        productDetails = productRepository.findByProductNameKeywords(keywords);
+                    }
                 }
                 information.put("response", productDetails);
             } else if ("purchase".equals(requestType)) {

@@ -53,4 +53,15 @@ public class ProductRepository {
     public List<Product> findAll() {
         return new ArrayList<>(products);
     }
+
+    public List<Product> findByProductNameKeywords(List<String> keywords) {
+        return products.stream()
+                .filter(product -> {
+                    String productNameLower = product.getNombreProducto().toLowerCase();
+                    // A product matches if its name contains any of the keywords
+                    return keywords.stream()
+                            .anyMatch(keyword -> productNameLower.contains(keyword.toLowerCase()));
+                })
+                .collect(Collectors.toList());
+    }
 }

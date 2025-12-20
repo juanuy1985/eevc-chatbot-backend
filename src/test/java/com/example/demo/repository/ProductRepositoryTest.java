@@ -97,4 +97,65 @@ class ProductRepositoryTest {
         // Total: 6 pernos + 6 tuercas + 6 volandas = 18 products
         assertEquals(18, allProducts.size());
     }
+
+    @Test
+    void testFindByProductNameKeywords_SingleKeyword() {
+        List<String> keywords = List.of("1/4\" x 2\"");
+        List<Product> products = productRepository.findByProductNameKeywords(keywords);
+        
+        assertNotNull(products);
+        assertEquals(1, products.size());
+        assertEquals("P-001", products.get(0).getCodigoProducto());
+        assertEquals("Perno Hexagonal 1/4\" x 2\" Acero Zincado", products.get(0).getNombreProducto());
+    }
+
+    @Test
+    void testFindByProductNameKeywords_MultipleKeywords() {
+        List<String> keywords = List.of("1/4\" x 2\"", "1/4\" x 4\"", "Plana M8", "Presión 3/8");
+        List<Product> products = productRepository.findByProductNameKeywords(keywords);
+        
+        assertNotNull(products);
+        // Should match: P-001 (1/4" x 2"), P-002 (1/4" x 4"), V-005 (Plana M8), V-004 (Presión 3/8")
+        assertEquals(4, products.size());
+        
+        // Verify specific products are found
+        assertTrue(products.stream().anyMatch(p -> p.getCodigoProducto().equals("P-001")));
+        assertTrue(products.stream().anyMatch(p -> p.getCodigoProducto().equals("P-002")));
+        assertTrue(products.stream().anyMatch(p -> p.getCodigoProducto().equals("V-005")));
+        assertTrue(products.stream().anyMatch(p -> p.getCodigoProducto().equals("V-004")));
+    }
+
+    @Test
+    void testFindByProductNameKeywords_CaseInsensitive() {
+        List<String> keywords = List.of("HEXAGONAL", "plana");
+        List<Product> products = productRepository.findByProductNameKeywords(keywords);
+        
+        assertNotNull(products);
+        assertFalse(products.isEmpty());
+        
+        // Should find products with "Hexagonal" or "Plana" in their names (case insensitive)
+        for (Product product : products) {
+            String nameLower = product.getNombreProducto().toLowerCase();
+            assertTrue(nameLower.contains("hexagonal") || nameLower.contains("plana"),
+                    "Product name should contain either 'hexagonal' or 'plana': " + product.getNombreProducto());
+        }
+    }
+
+    @Test
+    void testFindByProductNameKeywords_NoMatch() {
+        List<String> keywords = List.of("nonexistent", "invalid");
+        List<Product> products = productRepository.findByProductNameKeywords(keywords);
+        
+        assertNotNull(products);
+        assertTrue(products.isEmpty());
+    }
+
+    @Test
+    void testFindByProductNameKeywords_EmptyKeywords() {
+        List<String> keywords = List.of();
+        List<Product> products = productRepository.findByProductNameKeywords(keywords);
+        
+        assertNotNull(products);
+        assertTrue(products.isEmpty());
+    }
 }
