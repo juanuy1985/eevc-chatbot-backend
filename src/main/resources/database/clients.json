@@ -1,0 +1,470 @@
+[
+  {
+    "codigoCliente": "CLI-001",
+    "nombreCompleto": "Juan Carlos Rodríguez Pérez",
+    "direccion": "Av. Javier Prado Este 456",
+    "distrito": "San Isidro",
+    "ciudad": "Lima",
+    "telefono": "+51 1 2345678",
+    "email": "jrodriguez@email.com"
+  },
+  {
+    "codigoCliente": "CLI-002",
+    "nombreCompleto": "María Isabel García Torres",
+    "direccion": "Calle Las Begonias 789",
+    "distrito": "Miraflores",
+    "ciudad": "Lima",
+    "telefono": "+51 1 3456789",
+    "email": "mgarcia@email.com"
+  },
+  {
+    "codigoCliente": "CLI-003",
+    "nombreCompleto": "Pedro Luis Fernández Quispe",
+    "direccion": "Jr. Lampa 234",
+    "distrito": "Cercado de Lima",
+    "ciudad": "Lima",
+    "telefono": "+51 1 4567890",
+    "email": "pfernandez@email.com"
+  },
+  {
+    "codigoCliente": "CLI-004",
+    "nombreCompleto": "Ana Sofía Mamani Condori",
+    "direccion": "Av. La Marina 1523",
+    "distrito": "San Miguel",
+    "ciudad": "Lima",
+    "telefono": "+51 1 5678901",
+    "email": "amamani@email.com"
+  },
+  {
+    "codigoCliente": "CLI-005",
+    "nombreCompleto": "Carlos Alberto Huamán Vargas",
+    "direccion": "Calle Los Sauces 345",
+    "distrito": "Surco",
+    "ciudad": "Lima",
+    "telefono": "+51 1 6789012",
+    "email": "chuaman@email.com"
+  },
+  {
+    "codigoCliente": "CLI-006",
+    "nombreCompleto": "Rosa Elena Flores Ccama",
+    "direccion": "Av. Arequipa 2456",
+    "distrito": "Lince",
+    "ciudad": "Lima",
+    "telefono": "+51 1 7890123",
+    "email": "rflores@email.com"
+  },
+  {
+    "codigoCliente": "CLI-007",
+    "nombreCompleto": "José Miguel Chávez Rojas",
+    "direccion": "Jr. Cusco 678",
+    "distrito": "Breña",
+    "ciudad": "Lima",
+    "telefono": "+51 1 8901234",
+    "email": "jchavez@email.com"
+  },
+  {
+    "codigoCliente": "CLI-008",
+    "nombreCompleto": "Carmen Lucía Sánchez Yupanqui",
+    "direccion": "Av. Petit Thouars 1890",
+    "distrito": "San Isidro",
+    "ciudad": "Lima",
+    "telefono": "+51 1 9012345",
+    "email": "csanchez@email.com"
+  },
+  {
+    "codigoCliente": "CLI-009",
+    "nombreCompleto": "Luis Fernando Castillo Apaza",
+    "direccion": "Calle Schell 567",
+    "distrito": "Miraflores",
+    "ciudad": "Lima",
+    "telefono": "+51 1 2345679",
+    "email": "lcastillo@email.com"
+  },
+  {
+    "codigoCliente": "CLI-010",
+    "nombreCompleto": "Patricia Mónica Ríos Palomino",
+    "direccion": "Av. Brasil 2345",
+    "distrito": "Jesús María",
+    "ciudad": "Lima",
+    "telefono": "+51 1 3456780",
+    "email": "prios@email.com"
+  },
+  {
+    "codigoCliente": "CLI-011",
+    "nombreCompleto": "Roberto Antonio Mendoza Silva",
+    "direccion": "Jr. Ica 890",
+    "distrito": "La Victoria",
+    "ciudad": "Lima",
+    "telefono": "+51 1 4567891",
+    "email": "rmendoza@email.com"
+  },
+  {
+    "codigoCliente": "CLI-012",
+    "nombreCompleto": "Gabriela Beatriz Torres Huamán",
+    "direccion": "Av. República de Panamá 3456",
+    "distrito": "Surquillo",
+    "ciudad": "Lima",
+    "telefono": "+51 1 5678902",
+    "email": "gtorres@email.com"
+  },
+  {
+    "codigoCliente": "CLI-013",
+    "nombreCompleto": "Miguel Ángel Vega Quispe",
+    "direccion": "Calle Real 234",
+    "distrito": "San Borja",
+    "ciudad": "Lima",
+    "telefono": "+51 1 6789013",
+    "email": "mvega@email.com"
+  },
+  {
+    "codigoCliente": "CLI-014",
+    "nombreCompleto": "Silvia Rosario Medina Cruz",
+    "direccion": "Av. Tomás Marsano 2567",
+    "distrito": "Surco",
+    "ciudad": "Lima",
+    "telefono": "+51 1 7890124",
+    "email": "smedina@email.com"
+  },
+  {
+    "codigoCliente": "CLI-015",
+    "nombreCompleto": "Fernando José Gutiérrez Poma",
+    "direccion": "Jr. Ancash 456",
+    "distrito": "Cercado de Lima",
+    "ciudad": "Lima",
+    "telefono": "+51 1 8901235",
+    "email": "fgutierrez@email.com"
+  },
+  {
+    "codigoCliente": "CLI-016",
+    "nombreCompleto": "Elena Victoria Ramírez Ccari",
+    "direccion": "Av. La Molina 3890",
+    "distrito": "La Molina",
+    "ciudad": "Lima",
+    "telefono": "+51 1 9012346",
+    "email": "eramirez@email.com"
+  },
+  {
+    "codigoCliente": "CLI-017",
+    "nombreCompleto": "Raúl Andrés Paredes Huanca",
+    "direccion": "Calle Independencia 678",
+    "distrito": "Pueblo Libre",
+    "ciudad": "Lima",
+    "telefono": "+51 1 2345680",
+    "email": "rparedes@email.com"
+  },
+  {
+    "codigoCliente": "CLI-018",
+    "nombreCompleto": "Diana Carolina Morales Ticona",
+    "direccion": "Av. Universitaria 1234",
+    "distrito": "Los Olivos",
+    "ciudad": "Lima",
+    "telefono": "+51 1 3456781",
+    "email": "dmorales@email.com"
+  },
+  {
+    "codigoCliente": "CLI-019",
+    "nombreCompleto": "Arturo Hernán Salazar Mamani",
+    "direccion": "Jr. Huancavelica 890",
+    "distrito": "Cercado de Lima",
+    "ciudad": "Lima",
+    "telefono": "+51 1 4567892",
+    "email": "asalazar@email.com"
+  },
+  {
+    "codigoCliente": "CLI-020",
+    "nombreCompleto": "Verónica Alejandra Herrera Choque",
+    "direccion": "Av. Angamos Este 2345",
+    "distrito": "Surquillo",
+    "ciudad": "Lima",
+    "telefono": "+51 1 5678903",
+    "email": "vherrera@email.com"
+  },
+  {
+    "codigoCliente": "CLI-021",
+    "nombreCompleto": "Jorge Luis Campos Apaza",
+    "direccion": "Calle Los Cipreses 567",
+    "distrito": "San Isidro",
+    "ciudad": "Lima",
+    "telefono": "+51 1 6789014",
+    "email": "jcampos@email.com"
+  },
+  {
+    "codigoCliente": "CLI-022",
+    "nombreCompleto": "Mónica Patricia Romero Yupanqui",
+    "direccion": "Av. Colonial 4567",
+    "distrito": "Callao",
+    "ciudad": "Callao",
+    "telefono": "+51 1 7890125",
+    "email": "mromero@email.com"
+  },
+  {
+    "codigoCliente": "CLI-023",
+    "nombreCompleto": "Enrique Alejandro Cruz Flores",
+    "direccion": "Jr. Puno 234",
+    "distrito": "La Victoria",
+    "ciudad": "Lima",
+    "telefono": "+51 1 8901236",
+    "email": "ecruz@email.com"
+  },
+  {
+    "codigoCliente": "CLI-024",
+    "nombreCompleto": "Luciana Mercedes Díaz Condori",
+    "direccion": "Av. Aviación 2890",
+    "distrito": "San Borja",
+    "ciudad": "Lima",
+    "telefono": "+51 1 9012347",
+    "email": "ldiaz@email.com"
+  },
+  {
+    "codigoCliente": "CLI-025",
+    "nombreCompleto": "Ricardo Martín Ortiz Huamán",
+    "direccion": "Calle Bolognesi 456",
+    "distrito": "Barranco",
+    "ciudad": "Lima",
+    "telefono": "+51 1 2345681",
+    "email": "rortiz@email.com"
+  },
+  {
+    "codigoCliente": "CLI-026",
+    "nombreCompleto": "Isabel Cristina Ramos Ccama",
+    "direccion": "Av. Benavides 3456",
+    "distrito": "Miraflores",
+    "ciudad": "Lima",
+    "telefono": "+51 1 3456782",
+    "email": "iramos@email.com"
+  },
+  {
+    "codigoCliente": "CLI-027",
+    "nombreCompleto": "Alberto Francisco Vargas Quispe",
+    "direccion": "Jr. Azángaro 678",
+    "distrito": "Cercado de Lima",
+    "ciudad": "Lima",
+    "telefono": "+51 1 4567893",
+    "email": "avargas@email.com"
+  },
+  {
+    "codigoCliente": "CLI-028",
+    "nombreCompleto": "Natalia Roxana Jiménez Palomino",
+    "direccion": "Av. San Luis 1890",
+    "distrito": "San Luis",
+    "ciudad": "Lima",
+    "telefono": "+51 1 5678904",
+    "email": "njimenez@email.com"
+  },
+  {
+    "codigoCliente": "CLI-029",
+    "nombreCompleto": "Sergio Daniel Núñez Apaza",
+    "direccion": "Calle Tacna 789",
+    "distrito": "Breña",
+    "ciudad": "Lima",
+    "telefono": "+51 1 6789015",
+    "email": "snunez@email.com"
+  },
+  {
+    "codigoCliente": "CLI-030",
+    "nombreCompleto": "Adriana Lorena Castro Rojas",
+    "direccion": "Av. Primavera 2345",
+    "distrito": "Surco",
+    "ciudad": "Lima",
+    "telefono": "+51 1 7890126",
+    "email": "acastro@email.com"
+  },
+  {
+    "codigoCliente": "CLI-031",
+    "nombreCompleto": "Guillermo Esteban León Mamani",
+    "direccion": "Jr. Callao 456",
+    "distrito": "La Victoria",
+    "ciudad": "Lima",
+    "telefono": "+51 1 8901237",
+    "email": "gleon@email.com"
+  },
+  {
+    "codigoCliente": "CLI-032",
+    "nombreCompleto": "Fernanda Paola Reyes Huanca",
+    "direccion": "Av. El Polo 3890",
+    "distrito": "Surco",
+    "ciudad": "Lima",
+    "telefono": "+51 1 9012348",
+    "email": "freyes@email.com"
+  },
+  {
+    "codigoCliente": "CLI-033",
+    "nombreCompleto": "Marcos Antonio Delgado Silva",
+    "direccion": "Calle Las Flores 234",
+    "distrito": "San Juan de Miraflores",
+    "ciudad": "Lima",
+    "telefono": "+51 1 2345682",
+    "email": "mdelgado@email.com"
+  },
+  {
+    "codigoCliente": "CLI-034",
+    "nombreCompleto": "Daniela Valentina Ponce Ticona",
+    "direccion": "Av. Venezuela 2567",
+    "distrito": "Cercado de Lima",
+    "ciudad": "Lima",
+    "telefono": "+51 1 3456783",
+    "email": "dponce@email.com"
+  },
+  {
+    "codigoCliente": "CLI-035",
+    "nombreCompleto": "Óscar Eduardo Peña Choque",
+    "direccion": "Jr. Junín 890",
+    "distrito": "Cercado de Lima",
+    "ciudad": "Lima",
+    "telefono": "+51 1 4567894",
+    "email": "opena@email.com"
+  },
+  {
+    "codigoCliente": "CLI-036",
+    "nombreCompleto": "Claudia Marcela Aguilar Ccari",
+    "direccion": "Av. Los Próceres 1234",
+    "distrito": "Surco",
+    "ciudad": "Lima",
+    "telefono": "+51 1 5678905",
+    "email": "caguilar@email.com"
+  },
+  {
+    "codigoCliente": "CLI-037",
+    "nombreCompleto": "Rodrigo Sebastián Bravo Yupanqui",
+    "direccion": "Calle San Martín 567",
+    "distrito": "Pueblo Libre",
+    "ciudad": "Lima",
+    "telefono": "+51 1 6789016",
+    "email": "rbravo@email.com"
+  },
+  {
+    "codigoCliente": "CLI-038",
+    "nombreCompleto": "Laura Alejandra Vásquez Poma",
+    "direccion": "Av. Túpac Amaru 3456",
+    "distrito": "Rímac",
+    "ciudad": "Lima",
+    "telefono": "+51 1 7890127",
+    "email": "lvasquez@email.com"
+  },
+  {
+    "codigoCliente": "CLI-039",
+    "nombreCompleto": "Andrés Felipe Maldonado Flores",
+    "direccion": "Jr. Carabaya 234",
+    "distrito": "Cercado de Lima",
+    "ciudad": "Lima",
+    "telefono": "+51 1 8901238",
+    "email": "amaldonado@email.com"
+  },
+  {
+    "codigoCliente": "CLI-040",
+    "nombreCompleto": "Camila Andrea Ruiz Condori",
+    "direccion": "Av. Salaverry 2890",
+    "distrito": "Jesús María",
+    "ciudad": "Lima",
+    "telefono": "+51 1 9012349",
+    "email": "cruiz@email.com"
+  },
+  {
+    "codigoCliente": "CLI-041",
+    "nombreCompleto": "Héctor Manuel Ibarra Huamán",
+    "direccion": "Calle Manco Cápac 456",
+    "distrito": "La Victoria",
+    "ciudad": "Lima",
+    "telefono": "+51 1 2345683",
+    "email": "hibarra@email.com"
+  },
+  {
+    "codigoCliente": "CLI-042",
+    "nombreCompleto": "Mariana Sofía Cabrera Ccama",
+    "direccion": "Av. Canadá 1890",
+    "distrito": "La Victoria",
+    "ciudad": "Lima",
+    "telefono": "+51 1 3456784",
+    "email": "mcabrera@email.com"
+  },
+  {
+    "codigoCliente": "CLI-043",
+    "nombreCompleto": "Gustavo Ernesto Pacheco Quispe",
+    "direccion": "Jr. Washington 678",
+    "distrito": "Cercado de Lima",
+    "ciudad": "Lima",
+    "telefono": "+51 1 4567895",
+    "email": "gpacheco@email.com"
+  },
+  {
+    "codigoCliente": "CLI-044",
+    "nombreCompleto": "Valeria Nicole Santos Apaza",
+    "direccion": "Av. Angamos Oeste 2345",
+    "distrito": "Miraflores",
+    "ciudad": "Lima",
+    "telefono": "+51 1 5678906",
+    "email": "vsantos@email.com"
+  },
+  {
+    "codigoCliente": "CLI-045",
+    "nombreCompleto": "Mauricio Javier Córdova Palomino",
+    "direccion": "Calle Lima 567",
+    "distrito": "Barranco",
+    "ciudad": "Lima",
+    "telefono": "+51 1 6789017",
+    "email": "mcordova@email.com"
+  },
+  {
+    "codigoCliente": "CLI-046",
+    "nombreCompleto": "Estela Margarita Arias Rojas",
+    "direccion": "Av. Separadora Industrial 3456",
+    "distrito": "Ate",
+    "ciudad": "Lima",
+    "telefono": "+51 1 7890128",
+    "email": "earias@email.com"
+  },
+  {
+    "codigoCliente": "CLI-047",
+    "nombreCompleto": "Víctor Hugo Espinoza Mamani",
+    "direccion": "Jr. Huallaga 234",
+    "distrito": "Cercado de Lima",
+    "ciudad": "Lima",
+    "telefono": "+51 1 8901239",
+    "email": "vespinoza@email.com"
+  },
+  {
+    "codigoCliente": "CLI-048",
+    "nombreCompleto": "Carolina Estefanía Molina Huanca",
+    "direccion": "Av. Universitaria 2890",
+    "distrito": "San Martín de Porres",
+    "ciudad": "Lima",
+    "telefono": "+51 1 9012350",
+    "email": "cmolina@email.com"
+  },
+  {
+    "codigoCliente": "CLI-049",
+    "nombreCompleto": "Sebastián Ricardo Navarro Silva",
+    "direccion": "Calle Alcanfores 456",
+    "distrito": "Miraflores",
+    "ciudad": "Lima",
+    "telefono": "+51 1 2345684",
+    "email": "snavarro@email.com"
+  },
+  {
+    "codigoCliente": "CLI-050",
+    "nombreCompleto": "Liliana Teresa Carrillo Ticona",
+    "direccion": "Av. Javier Prado Oeste 1890",
+    "distrito": "Magdalena",
+    "ciudad": "Lima",
+    "telefono": "+51 1 3456785",
+    "email": "lcarrillo@email.com"
+  },
+  {
+    "codigoCliente": "CLI-051",
+    "nombreCompleto": "Pablo Ignacio Montoya Choque",
+    "direccion": "Jr. Ucayali 678",
+    "distrito": "Cercado de Lima",
+    "ciudad": "Lima",
+    "telefono": "+51 1 4567896",
+    "email": "pmontoya@email.com"
+  },
+  {
+    "codigoCliente": "CLI-052",
+    "nombreCompleto": "Sofía Daniela Paredes Ccari",
+    "direccion": "Av. La Mar 2345",
+    "distrito": "Pueblo Libre",
+    "ciudad": "Lima",
+    "telefono": "+51 1 5678907",
+    "email": "sparedes@email.com"
+  }
+]
