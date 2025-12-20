@@ -75,8 +75,7 @@ public class AiService {
                 "  \"items\": [{\"name\": \"product1\", \"quantity\": 10}, {\"name\": \"product2\", \"quantity\": 5}, ...],\n" +
                 "  \"message\": \"A natural message saying you're processing the purchase\"\n" +
                 "}\n\n" +
-                "Product context: " + productContext + "\n" +
-                clientContext;
+                "Product context: " + productContext;
 
         // Concatenate client context to user message
         String enhancedMessage = clientContext + "\n\nUser request: " + userMessage;
@@ -131,10 +130,12 @@ public class AiService {
                 List<Map<String, Object>> items = new ArrayList<>();
                 if (jsonNode.has("items") && jsonNode.get("items").isArray()) {
                     jsonNode.get("items").forEach(node -> {
-                        Map<String, Object> item = new HashMap<>();
-                        item.put("name", node.get("name").asText());
-                        item.put("quantity", node.get("quantity").asInt());
-                        items.add(item);
+                        if (node.has("name") && node.has("quantity")) {
+                            Map<String, Object> item = new HashMap<>();
+                            item.put("name", node.get("name").asText());
+                            item.put("quantity", node.get("quantity").asInt());
+                            items.add(item);
+                        }
                     });
                 }
                 information.put("response", items);
@@ -147,6 +148,10 @@ public class AiService {
             return new ChatResponse(codigoCliente, message, information);
             
         } catch (JsonProcessingException e) {
+            // Log the parsing error for debugging
+            System.err.println("Failed to parse AI response as JSON: " + aiResponse);
+            System.err.println("Error: " + e.getMessage());
+            
             // If not valid JSON, return as plain response
             Map<String, Object> information = new HashMap<>();
             information.put("type", "unknown");
